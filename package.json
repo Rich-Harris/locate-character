@@ -1,0 +1,41 @@
+{
+  "name": "locate-character",
+  "version": "1.0.0",
+  "description": "Get the line and column number of a specific character in a string",
+  "main": "dist/locate-character.umd.js",
+  "jsnext:main": "dist/locate-character.es.js",
+  "module": "dist/locate-character.es.js",
+  "scripts": {
+    "test": "mocha",
+    "pretest": "npm run build",
+    "build": "rollup -c",
+    "prepublish": "npm test"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/Rich-Harris/locate-character.git"
+  },
+  "keywords": [
+    "string",
+    "character",
+    "locate",
+    "line",
+    "column",
+    "location"
+  ],
+  "author": "Rich Harris",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/Rich-Harris/locate-character/issues"
+  },
+  "homepage": "https://gitlab.com/Rich-Harris/locate-character#README",
+  "devDependencies": {
+    "mocha": "^3.0.1",
+    "rollup": "^0.34.7",
+    "rollup-plugin-buble": "^0.12.1"
+  }
+}
