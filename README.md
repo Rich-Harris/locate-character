@@ -4,7 +4,7 @@ Get the line and column number of a particular character in a string.
 
 ## Installation
 
-`npm install locate-character`, or get it from [npmcdn.com/locate-character](https://npmcdn.com/locate-character).
+`npm install locate-character`, or get it from [unpkg.com/locate-character](https://unpkg.com/locate-character).
 
 
 ## Usage
