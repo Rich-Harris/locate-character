@@ -1,6 +1,6 @@
 {
   "name": "locate-character",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Get the line and column number of a specific character in a string",
   "main": "dist/locate-character.umd.js",
   "jsnext:main": "dist/locate-character.es.js",

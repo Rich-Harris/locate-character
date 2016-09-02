@@ -1,4 +1,7 @@
-export function getLocator ( source ) {
+export function getLocator ( source, options = {} ) {
+	const offsetLine = options.offsetLine || 0;
+	const offsetColumn = options.offsetColumn || 0;
+
 	let originalLines = source.split( '\n' );
 
 	let start = 0;
@@ -17,7 +20,7 @@ export function getLocator ( source ) {
 	}
 
 	function getLocation ( range, index ) {
-		return { line: range.line, column: index - range.start, character: index };
+		return { line: offsetLine + range.line, column: offsetColumn + index - range.start, character: index };
 	}
 
 	return function locate ( search, startIndex ) {
@@ -38,6 +41,10 @@ export function getLocator ( source ) {
 	};
 }
 
-export function locate ( source, search, startIndex ) {
-	return getLocator( source )( search, startIndex );
+export function locate ( source, search, options ) {
+	if ( typeof options === 'number' ) {
+		throw new Error( 'locate takes a { startIndex, offsetLine, offsetColumn } object as the third argument' );
+	}
+
+	return getLocator( source, options )( search, options && options.startIndex );
 }

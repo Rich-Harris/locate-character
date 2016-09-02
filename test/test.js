@@ -25,6 +25,14 @@ describe( 'locate-character', () => {
 			assert.deepEqual( locator( 76 ), { line: 2, column: 9, character: 76 });
 		});
 
+		it( 'respects offsetLine: x and offsetColumn: x', () => {
+			const locator = getLocator( sample, { offsetLine: 2, offsetColumn: 2 });
+			assert.deepEqual(
+				locator( 0 ),
+				{ line: 2, column: 2, character: 0 }
+			);
+		});
+
 		it( 'locates by search string', () => {
 			assert.deepEqual( locator( 'fly' ), { line: 0, column: 13, character: 13 });
 		});
@@ -51,8 +59,15 @@ describe( 'locate-character', () => {
 		});
 
 		it( 'locates a character by string with startIndex', () => {
-			assert.deepEqual( locate( sample, 'fly', 14 ), { line: 2, column: 9, character: 76 });
-			assert.deepEqual( locate( sample, 'fly', 77 ), { line: 3, column: 8, character: 104 });
+			assert.deepEqual( locate( sample, 'fly', { startIndex: 14 }), { line: 2, column: 9, character: 76 });
+			assert.deepEqual( locate( sample, 'fly', { startIndex: 77 }), { line: 3, column: 8, character: 104 });
+		});
+
+		it( 'respects offsetLine: x and offsetColumn: x', () => {
+			assert.deepEqual(
+				locate( sample, 13, { offsetLine: 2, offsetColumn: 2 }),
+				{ line: 2, column: 15, character: 13 }
+			);
 		});
 	});
 });
