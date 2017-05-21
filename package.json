@@ -1,6 +1,6 @@
 {
   "name": "locate-character",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Get the line and column number of a specific character in a string",
   "main": "dist/locate-character.umd.js",
   "jsnext:main": "dist/locate-character.es.js",
@@ -36,6 +36,8 @@
   "devDependencies": {
     "mocha": "^3.0.1",
     "rollup": "^0.34.7",
-    "rollup-plugin-buble": "^0.12.1"
-  }
+    "rollup-plugin-typescript": "^0.8.1",
+    "typescript": "^2.3.2"
+  },
+  "types": "./types.d.ts"
 }
