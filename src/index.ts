@@ -48,6 +48,8 @@ export function getLocator ( source: string, options: Options = {} ) {
 			search = source.indexOf( search, startIndex || 0 );
 		}
 
+		if ( search === -1 ) return undefined;
+
 		let range = lineRanges[i];
 
 		const d = search >= range.end ? 1 : -1;
