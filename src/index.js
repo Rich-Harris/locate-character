@@ -1,17 +1,24 @@
 /** @typedef {import('./types').Location} Location */
 
 /**
+ * @param {import('./types').Range} range
+ * @param {number} index
+ */
+function rangeContains(range, index) {
+	return range.start <= index && index < range.end;
+}
+
+/**
  * @param {string} source
  * @param {import('./types').Options} [options]
  */
 export function getLocator(source, options = {}) {
-	const offsetLine = options.offsetLine || 0;
-	const offsetColumn = options.offsetColumn || 0;
+	const { offsetLine = 0, offsetColumn = 0 } = options;
 
-	let originalLines = source.split('\n');
+	const lines = source.split('\n');
 
 	let start = 0;
-	let lineRanges = originalLines.map((line, i) => {
+	let ranges = lines.map((line, i) => {
 		const end = start + line.length + 1;
 
 		/** @type {import('./types').Range} */
@@ -24,51 +31,36 @@ export function getLocator(source, options = {}) {
 	let i = 0;
 
 	/**
-	 * @param {import('./types').Range} range
-	 * @param {number} index
-	 */
-	function rangeContains(range, index) {
-		return range.start <= index && index < range.end;
-	}
-
-	/**
-	 * @param {import('./types').Range} range
-	 * @param {number} index
-	 * @returns {Location}
-	 */
-	function getLocation(range, index) {
-		return {
-			line: offsetLine + range.line,
-			column: offsetColumn + index - range.start,
-			character: index
-		};
-	}
-
-	/**
 	 * @param {string | number} search
 	 * @param {number} [startIndex]
 	 * @returns {Location | undefined}
 	 */
-	function locate(search, startIndex) {
+	function locator(search, startIndex) {
 		if (typeof search === 'string') {
 			search = source.indexOf(search, startIndex || 0);
 		}
 
 		if (search === -1) return undefined;
 
-		let range = lineRanges[i];
+		let range = ranges[i];
 
 		const d = search >= range.end ? 1 : -1;
 
 		while (range) {
-			if (rangeContains(range, search)) return getLocation(range, search);
+			if (rangeContains(range, search)) {
+				return {
+					line: offsetLine + range.line,
+					column: offsetColumn + search - range.start,
+					character: search
+				};
+			}
 
 			i += d;
-			range = lineRanges[i];
+			range = ranges[i];
 		}
 	}
 
-	return locate;
+	return locator;
 }
 
 /**
