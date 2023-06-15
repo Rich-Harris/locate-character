@@ -13,6 +13,8 @@ To search for a particular character, using the index or a search string, use `l
 
 ```js
 import { locate } from 'locate-character';
+// -> function locate( source, search,
+//      options = { startIndex: 0, offsetLine: 0, offsetColumn: 0 } )
 
 const sample = `
 A flea and a fly in a flue
@@ -42,14 +44,15 @@ If you will be searching the same string repeatedly, it's much faster if you use
 import { getLocator } from 'locate-character';
 
 const locate = getLocator( sample );
+// -> function locate( search, startIndex )
 
 let location = locate( 13 );
 // -> { line: 0, column: 13, character: 13 }
 
-location = locate( 'fly', { startIndex: location.character + 1 });
+location = locate( 'fly', location.character + 1);
 // -> { line: 2, column: 9, character: 76 }
 
-location = locate( 'fly', { startIndex: location.character + 1 });
+location = locate( 'fly', location.character + 1);
 // -> { line: 3, column: 8, character: 104 }
 ```
 
