@@ -15,10 +15,8 @@ function rangeContains(range, index) {
 export function getLocator(source, options = {}) {
 	const { offsetLine = 0, offsetColumn = 0 } = options;
 
-	const lines = source.split('\n');
-
 	let start = 0;
-	let ranges = lines.map((line, i) => {
+	const ranges = source.split('\n').map((line, i) => {
 		const end = start + line.length + 1;
 
 		/** @type {import('./types').Range} */
@@ -32,12 +30,12 @@ export function getLocator(source, options = {}) {
 
 	/**
 	 * @param {string | number} search
-	 * @param {number} [startIndex]
+	 * @param {number} [index]
 	 * @returns {Location | undefined}
 	 */
-	function locator(search, startIndex) {
+	function locator(search, index) {
 		if (typeof search === 'string') {
-			search = source.indexOf(search, startIndex || 0);
+			search = source.indexOf(search, index ?? 0);
 		}
 
 		if (search === -1) return undefined;
