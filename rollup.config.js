@@ -9,7 +9,6 @@ export default {
 		})
 	],
 	targets: [
-		{ dest: 'dist/locate-character.es.js', format: 'es' },
-		{ dest: 'dist/locate-character.umd.js', format: 'umd' }
+		{ dest: 'dist/locate-character.js', format: 'es' }
 	]
 };
